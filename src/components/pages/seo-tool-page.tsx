@@ -72,7 +72,7 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
                   {relatedTools.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        href={`/pdf-tools/${item.slug}`}
+                        href={`/seo-tools/${item.slug}`}
                         className="hover:underline hover:text-foreground"
                       >
                         {item.title}

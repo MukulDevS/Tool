@@ -189,7 +189,7 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                   {relatedTools.map((related) => (
                     <li key={item.slug}>
                       <Link
-                        href={`/pdf-tools/${item.slug}`}
+                        href={`/image-tools/${item.slug}`}
                         className="hover:underline hover:text-foreground"
                       >
                         {item.title}
