@@ -112,7 +112,14 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
                 <h2 className="text-sm font-semibold">Related tools</h2>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {relatedTools.map((item) => (
-                    <li key={item.slug}>{item.title}</li>
+                    <li key={item.slug}>
+                      <Link
+                        href={`/tools/${item.slug}`}
+                        className="hover:text-foreground hover:underline transition-colors"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>
