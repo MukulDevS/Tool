@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { FAQ } from "@/components/ui/faq";
@@ -114,8 +115,8 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
                   {relatedTools.map((item) => (
                     <li key={item.slug}>
                       <Link
-                        href={`/tools/${item.slug}`}
-                        className="hover:text-foreground hover:underline transition-colors"
+                        href={`/pdf-tools/${item.slug}`}
+                        className="hover:underline hover:text-foreground"
                       >
                         {item.title}
                       </Link>
