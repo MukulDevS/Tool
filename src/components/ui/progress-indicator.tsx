@@ -6,7 +6,10 @@ export function ProgressIndicator({ value }: { value: number }) {
         <span>{Math.round(value)}%</span>
       </div>
       <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-border">
-        <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${Math.min(Math.max(value, 0), 100)}%` }} />
+        <div
+          className="h-full rounded-full bg-primary transition-all"
+          style={{ width: `${Math.min(Math.max(value, 0), 100)}%` }}
+        />
       </div>
     </div>
   );

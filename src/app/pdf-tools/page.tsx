@@ -8,21 +8,27 @@ const category = toolCategories.find((item) => item.slug === "pdf-tools")!;
 
 export const metadata: Metadata = {
   title: category.title,
-  description: category.description
+  description: category.description,
 };
 
 export default function PDFToolsPage() {
   return (
     <div className="space-y-8">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: category.title }]} />
+      <Breadcrumb
+        items={[{ label: "Home", href: "/" }, { label: category.title }]}
+      />
 
       <section className="rounded-lg border border-border bg-card p-5 shadow-subtle sm:p-8">
         <div className="max-w-3xl space-y-3">
           <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
             {pdfTools.length} tools available
           </span>
-          <h1 className="text-3xl font-semibold sm:text-4xl">{category.title}</h1>
-          <p className="text-base leading-7 text-muted-foreground">{category.description}</p>
+          <h1 className="text-3xl font-semibold sm:text-4xl">
+            {category.title}
+          </h1>
+          <p className="text-base leading-7 text-muted-foreground">
+            {category.description}
+          </p>
         </div>
       </section>
 

@@ -40,18 +40,30 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
 
   return (
     <div className="space-y-8">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "SEO Tools", href: "/seo-tools" }, { label: tool.title }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "SEO Tools", href: "/seo-tools" },
+          { label: tool.title },
+        ]}
+      />
 
       <section className="rounded-lg border border-border bg-card p-5 shadow-subtle sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="space-y-4">
-            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">{tool.icon} SEO Utility</span>
+            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
+              {tool.icon} SEO Utility
+            </span>
             <h1 className="text-3xl font-semibold sm:text-4xl">{tool.title}</h1>
-            <p className="text-base leading-7 text-muted-foreground">{tool.details}</p>
+            <p className="text-base leading-7 text-muted-foreground">
+              {tool.details}
+            </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Tool description</h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{tool.description}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {tool.description}
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Related tools</h2>
@@ -72,7 +84,9 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
                   {input.multiline ? (
                     <textarea
                       value={values[index]}
-                      onChange={(event) => updateValue(index, event.target.value)}
+                      onChange={(event) =>
+                        updateValue(index, event.target.value)
+                      }
                       placeholder={input.placeholder}
                       className="focus-ring min-h-24 w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                     />
@@ -80,7 +94,9 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
                     <input
                       type={input.type ?? "text"}
                       value={values[index]}
-                      onChange={(event) => updateValue(index, event.target.value)}
+                      onChange={(event) =>
+                        updateValue(index, event.target.value)
+                      }
                       placeholder={input.placeholder}
                       className="focus-ring w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                     />
@@ -118,14 +134,18 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
               {output}
             </pre>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">Generated output will appear here after you create content.</p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Generated output will appear here after you create content.
+            </p>
           )}
         </div>
 
         <aside className="space-y-4">
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">
             <h2 className="text-lg font-semibold">Tool details</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{tool.details}</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {tool.details}
+            </p>
           </div>
 
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">
@@ -160,13 +180,25 @@ function generateOutput(tool: SeoTool, values: string[]) {
       const disallow = first || "";
       const allow = second || "";
       const sitemap = third || "https://example.com/sitemap.xml";
-      return [`User-agent: *`, disallow ? `Disallow: ${disallow}` : null, allow ? `Allow: ${allow}` : null, `Sitemap: ${sitemap}`].filter(Boolean).join("\n");
+      return [
+        `User-agent: *`,
+        disallow ? `Disallow: ${disallow}` : null,
+        allow ? `Allow: ${allow}` : null,
+        `Sitemap: ${sitemap}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
     }
     case "sitemap-generator": {
       const siteUrl = first || "https://example.com";
-      const urls = second ? second.split(/\n+/).filter(Boolean) : ["https://example.com/home"];
+      const urls = second
+        ? second.split(/\n+/).filter(Boolean)
+        : ["https://example.com/home"];
       return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls
-        .map((url) => `\n  <url><loc>${siteUrl}${url.startsWith("http") ? "" : "/"}${url}</loc></url>`)
+        .map(
+          (url) =>
+            `\n  <url><loc>${siteUrl}${url.startsWith("http") ? "" : "/"}${url}</loc></url>`,
+        )
         .join("")}\n</urlset>`;
     }
     case "canonical-url-generator": {

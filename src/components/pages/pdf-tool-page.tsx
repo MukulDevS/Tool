@@ -58,13 +58,17 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
 
     try {
       const generated = [
-        new File([new Blob(["PDF tool placeholder"] ,{ type: "application/pdf" })], `${tool.slug}.pdf`, { type: "application/pdf" })
+        new File(
+          [new Blob(["PDF tool placeholder"], { type: "application/pdf" })],
+          `${tool.slug}.pdf`,
+          { type: "application/pdf" },
+        ),
       ];
 
       const results = generated.map((file) => ({
         url: URL.createObjectURL(file),
         name: file.name,
-        size: file.size
+        size: file.size,
       }));
 
       setOutputFiles(results);
@@ -79,18 +83,30 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
 
   return (
     <div className="space-y-8">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "PDF Tools", href: "/pdf-tools" }, { label: tool.title }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "PDF Tools", href: "/pdf-tools" },
+          { label: tool.title },
+        ]}
+      />
 
       <section className="rounded-lg border border-border bg-card p-5 shadow-subtle sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="space-y-4">
-            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">{tool.icon} PDF Tool</span>
+            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
+              {tool.icon} PDF Tool
+            </span>
             <h1 className="text-3xl font-semibold sm:text-4xl">{tool.title}</h1>
-            <p className="text-base leading-7 text-muted-foreground">{tool.details}</p>
+            <p className="text-base leading-7 text-muted-foreground">
+              {tool.details}
+            </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Tool description</h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{tool.description}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {tool.description}
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Related tools</h2>
@@ -134,7 +150,9 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-xl font-semibold">Workspace</h2>
-              <span className="rounded-full bg-muted px-2.5 py-1 text-sm text-muted-foreground">{tool.action}</span>
+              <span className="rounded-full bg-muted px-2.5 py-1 text-sm text-muted-foreground">
+                {tool.action}
+              </span>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -156,7 +174,9 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
                   <span className="font-medium">Rotation</span>
                   <select
                     value={rotation}
-                    onChange={(event) => setRotation(Number(event.target.value))}
+                    onChange={(event) =>
+                      setRotation(Number(event.target.value))
+                    }
                     className="focus-ring w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                   >
                     <option value={90}>90°</option>
@@ -220,10 +240,15 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
                 <p className="text-sm font-semibold">Download result</p>
                 <div className="mt-3 space-y-3">
                   {outputFiles.map((file) => (
-                    <div key={file.url} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-muted/50 p-3">
+                    <div
+                      key={file.url}
+                      className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-muted/50 p-3"
+                    >
                       <div>
                         <p className="text-sm font-medium">{file.name}</p>
-                        <p className="text-sm text-muted-foreground">{file.size} bytes</p>
+                        <p className="text-sm text-muted-foreground">
+                          {file.size} bytes
+                        </p>
                       </div>
                       <DownloadButton href={file.url} fileName={file.name} />
                     </div>
@@ -237,7 +262,9 @@ export function PdfToolPage({ tool }: { tool: PdfTool }) {
         <aside className="space-y-4">
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">
             <h2 className="text-lg font-semibold">Tool details</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{tool.details}</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {tool.details}
+            </p>
           </div>
 
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">

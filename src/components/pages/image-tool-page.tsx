@@ -15,12 +15,19 @@ import {
   flipImage,
   removeMetadata,
   resizeImage,
-  rotateImage
+  rotateImage,
 } from "@/lib/image-processing";
-import { formatFileSize, getMimeTypeFromFile, readFileAsDataUrl } from "@/lib/image-utils";
+import {
+  formatFileSize,
+  getMimeTypeFromFile,
+  readFileAsDataUrl,
+} from "@/lib/image-utils";
 import { findRelatedTools } from "@/lib/image-tools";
 
-const qualityOptions = [100, 90, 80, 70, 60].map((value) => ({ label: `${value}%`, value: value / 100 }));
+const qualityOptions = [100, 90, 80, 70, 60].map((value) => ({
+  label: `${value}%`,
+  value: value / 100,
+}));
 
 type FileResult = {
   url: string;
@@ -49,7 +56,7 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
   const firstFile = useMemo(() => inputFiles[0] ?? null, [inputFiles]);
   const supportedMime = useMemo(
     () => (firstFile ? getMimeTypeFromFile(firstFile) : "Unknown"),
-    [firstFile]
+    [firstFile],
   );
 
   function resetOutput() {
@@ -83,7 +90,12 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
       let results: File[] = [];
 
       if (tool.slug === "batch-converter") {
-        results = await batchConvertImages(inputFiles, format, quality, setProgress);
+        results = await batchConvertImages(
+          inputFiles,
+          format,
+          quality,
+          setProgress,
+        );
       } else {
         const source = inputFiles[0];
         let result: File;
@@ -102,13 +114,22 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
             result = await rotateImage(source, rotate, quality);
             break;
           case "flip-image":
-            result = await flipImage(source, horizontalFlip, verticalFlip, quality);
+            result = await flipImage(
+              source,
+              horizontalFlip,
+              verticalFlip,
+              quality,
+            );
             break;
           case "remove-metadata":
             result = await removeMetadata(source, quality);
             break;
           default:
-            result = await convertImage(source, tool.outputMime ?? format, quality);
+            result = await convertImage(
+              source,
+              tool.outputMime ?? format,
+              quality,
+            );
             break;
         }
 
@@ -119,8 +140,8 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
         results.map(async (result) => ({
           url: URL.createObjectURL(result),
           name: result.name,
-          size: result.size
-        }))
+          size: result.size,
+        })),
       );
 
       setOutputFiles(fileResults);
@@ -136,18 +157,30 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
 
   return (
     <div className="space-y-8">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Image Tools", href: "/image-tools" }, { label: tool.title }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Image Tools", href: "/image-tools" },
+          { label: tool.title },
+        ]}
+      />
 
       <section className="rounded-lg border border-border bg-card p-5 shadow-subtle sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="space-y-4">
-            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">{tool.icon} Image Tool</span>
+            <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
+              {tool.icon} Image Tool
+            </span>
             <h1 className="text-3xl font-semibold sm:text-4xl">{tool.title}</h1>
-            <p className="text-base leading-7 text-muted-foreground">{tool.details}</p>
+            <p className="text-base leading-7 text-muted-foreground">
+              {tool.details}
+            </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Tool description</h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{tool.description}</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  {tool.description}
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Related tools</h2>
@@ -176,12 +209,17 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
               <div className="space-y-2 rounded-lg border border-border bg-background p-4">
                 <p className="text-sm font-semibold">Selected files</p>
                 {inputFiles.map((file) => (
-                  <div key={file.name} className="text-sm text-muted-foreground">
+                  <div
+                    key={file.name}
+                    className="text-sm text-muted-foreground"
+                  >
                     <p>{file.name}</p>
                     <p>{formatFileSize(file.size)}</p>
                   </div>
                 ))}
-                <p className="text-sm text-muted-foreground">Detected type: {supportedMime}</p>
+                <p className="text-sm text-muted-foreground">
+                  Detected type: {supportedMime}
+                </p>
               </div>
             ) : null}
           </div>
@@ -193,7 +231,9 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-xl font-semibold">Workspace</h2>
-              <span className="rounded-full bg-muted px-2.5 py-1 text-sm text-muted-foreground">{tool.action}</span>
+              <span className="rounded-full bg-muted px-2.5 py-1 text-sm text-muted-foreground">
+                {tool.action}
+              </span>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {tool.controls.quality ? (
@@ -231,7 +271,9 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                       type="number"
                       min={1}
                       value={height}
-                      onChange={(event) => setHeight(Number(event.target.value))}
+                      onChange={(event) =>
+                        setHeight(Number(event.target.value))
+                      }
                       className="focus-ring w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                     />
                   </label>
@@ -254,7 +296,9 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                       type="number"
                       min={1}
                       value={height}
-                      onChange={(event) => setHeight(Number(event.target.value))}
+                      onChange={(event) =>
+                        setHeight(Number(event.target.value))
+                      }
                       placeholder="Height"
                       className="focus-ring w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
                     />
@@ -283,7 +327,9 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                     <input
                       type="checkbox"
                       checked={horizontalFlip}
-                      onChange={(event) => setHorizontalFlip(event.target.checked)}
+                      onChange={(event) =>
+                        setHorizontalFlip(event.target.checked)
+                      }
                       className="focus-ring rounded border border-border bg-background"
                     />
                     Flip horizontal
@@ -292,7 +338,9 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                     <input
                       type="checkbox"
                       checked={verticalFlip}
-                      onChange={(event) => setVerticalFlip(event.target.checked)}
+                      onChange={(event) =>
+                        setVerticalFlip(event.target.checked)
+                      }
                       className="focus-ring rounded border border-border bg-background"
                     />
                     Flip vertical
@@ -342,7 +390,11 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
               {previewUrl ? (
                 <div className="rounded-lg border border-border bg-background p-4">
                   <p className="text-sm font-semibold">Preview</p>
-                  <img src={previewUrl} alt="Preview" className="mt-3 max-h-80 w-full rounded-md object-contain" />
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="mt-3 max-h-80 w-full rounded-md object-contain"
+                  />
                 </div>
               ) : null}
 
@@ -351,10 +403,15 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                   <p className="text-sm font-semibold">Download result</p>
                   <div className="mt-3 space-y-3">
                     {outputFiles.map((file) => (
-                      <div key={file.url} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-muted/50 p-3">
+                      <div
+                        key={file.url}
+                        className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-muted/50 p-3"
+                      >
                         <div>
                           <p className="text-sm font-medium">{file.name}</p>
-                          <p className="text-sm text-muted-foreground">{formatFileSize(file.size)}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {formatFileSize(file.size)}
+                          </p>
                         </div>
                         <DownloadButton href={file.url} fileName={file.name} />
                       </div>
@@ -369,11 +426,15 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
         <aside className="space-y-4">
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">
             <h2 className="text-lg font-semibold">Tool details</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{tool.details}</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {tool.details}
+            </p>
           </div>
 
           <div className="rounded-lg border border-border bg-card p-5 shadow-subtle">
-            <h2 className="text-lg font-semibold">Frequently asked questions</h2>
+            <h2 className="text-lg font-semibold">
+              Frequently asked questions
+            </h2>
             <div className="mt-4">
               <FAQ items={tool.faq} />
             </div>
