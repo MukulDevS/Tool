@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { CategoryPage } from "@/components/pages/category-page";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { ToolCard } from "@/components/cards/tool-card";
+import { seoTools } from "@/lib/seo-tools";
 import { toolCategories } from "@/lib/constants";
 
 const category = toolCategories.find((item) => item.slug === "seo-tools")!;
@@ -10,5 +12,36 @@ export const metadata: Metadata = {
 };
 
 export default function SEOToolsPage() {
-  return <CategoryPage category={category} />;
+  return (
+    <div className="space-y-8">
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: category.title }]} />
+
+      <section className="rounded-lg border border-border bg-card p-5 shadow-subtle sm:p-8">
+        <div className="max-w-3xl space-y-3">
+          <span className="inline-flex rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">
+            {seoTools.length} tools available
+          </span>
+          <h1 className="text-3xl font-semibold sm:text-4xl">{category.title}</h1>
+          <p className="text-base leading-7 text-muted-foreground">{category.description}</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="seo-tools-heading" className="space-y-4">
+        <h2 id="seo-tools-heading" className="text-2xl font-semibold">
+          SEO utilities
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {seoTools.map((tool) => (
+            <ToolCard
+              key={tool.slug}
+              title={tool.title}
+              description={tool.description}
+              status="Live"
+              href={`/seo-tools/${tool.slug}`}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
 }

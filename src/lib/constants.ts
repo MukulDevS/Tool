@@ -27,7 +27,7 @@ export const toolCategories: ToolCategory[] = [
     slug: "image-tools",
     description: "Optimize, convert, resize, and prepare images for modern web workflows.",
     icon: "IMG",
-    toolsPlanned: 8,
+    toolsPlanned: 15,
     accent: "bg-emerald-500"
   },
   {
