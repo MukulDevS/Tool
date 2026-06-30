@@ -69,7 +69,7 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
               <div className="rounded-lg border border-border bg-background p-4">
                 <h2 className="text-sm font-semibold">Related tools</h2>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                  {relatedTools.map((item) => (
+                  {relatedTools.map((related) => (
                     <li key={related.slug}>
                       <Link
                         href={`/seo-tools/${related.slug}`}
