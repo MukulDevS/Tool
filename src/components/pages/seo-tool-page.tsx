@@ -70,12 +70,12 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
                 <h2 className="text-sm font-semibold">Related tools</h2>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {relatedTools.map((item) => (
-                    <li key={item.slug}>
+                    <li key={related.slug}>
                       <Link
-                        href={`/seo-tools/${item.slug}`}
+                        href={`/seo-tools/${related.slug}`}
                         className="hover:underline hover:text-foreground"
                       >
-                        {item.title}
+                        {related.title}
                       </Link>
                     </li>
                   ))}

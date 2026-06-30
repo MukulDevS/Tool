@@ -187,12 +187,12 @@ export function ImageToolPage({ tool }: { tool: ImageTool }) {
                 <h2 className="text-sm font-semibold">Related tools</h2>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {relatedTools.map((related) => (
-                    <li key={item.slug}>
+                    <li key={related.slug}>
                       <Link
-                        href={`/image-tools/${item.slug}`}
+                        href={`/image-tools/${related.slug}`}
                         className="hover:underline hover:text-foreground"
                       >
-                        {item.title}
+                        {related.title}
                       </Link>
                     </li>
                   ))}
