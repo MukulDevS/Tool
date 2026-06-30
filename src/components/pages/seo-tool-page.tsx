@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { FAQ } from "@/components/ui/faq";
@@ -69,7 +70,14 @@ export function SeoToolPage({ tool }: { tool: SeoTool }) {
                 <h2 className="text-sm font-semibold">Related tools</h2>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {relatedTools.map((item) => (
-                    <li key={item.slug}>{item.title}</li>
+                    <li key={item.slug}>
+                      <Link
+                        href={`/pdf-tools/${item.slug}`}
+                        className="hover:underline hover:text-foreground"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>
