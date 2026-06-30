@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { Sidebar } from "@/components/layout/sidebar";
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             <Footer />
           </div>
         </ToastProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
