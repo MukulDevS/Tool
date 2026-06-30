@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "SaaS Tools",
+  name: "Saaa Tools",
   description:
     "A curated workspace for image, video, PDF, developer, and SEO tools.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://saas-tools.vercel.app",
